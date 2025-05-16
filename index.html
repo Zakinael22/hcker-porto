@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hacker Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&display=swap');
+
+        :root {
+            --neon-green: #0f0;
+            --dark-bg: #0a0a0a;
+            --terminal-bg: #000000;
+            --terminal-border: #0f0;
+            --text-color: #cccccc;
+        }
+
+        body {
+            font-family: 'Share Tech Mono', monospace;
+            background-color: var(--dark-bg);
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+
+        .terminal {
+            background-color: var(--terminal-bg);
+            border: 1px solid var(--terminal-border);
+            box-shadow: 0 0 10px var(--neon-green);
+        }
+
+        .neon-text {
+            color: var(--neon-green);
+            text-shadow: 0 0 5px var(--neon-green);
+        }
+
+        .glitch {
+            position: relative;
+        }
+
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .glitch::before {
+            left: 2px;
+            text-shadow: -1px 0 #ff00ff;
+            animation: glitch-animation 3s infinite linear alternate-reverse;
+        }
+
+        .glitch::after {
+            left: -2px;
+            text-shadow: 1px 0 #00ffff;
+            animation: glitch-animation 2s infinite linear alternate-reverse;
+        }
+
+        @keyframes glitch-animation {
+            0% {
+                clip-path: inset(29% 0 25% 0);
+            }
+            5% {
+                clip-path: inset(9% 0 38% 0);
+            }
+            10% {
+                clip-path: inset(96% 0 1% 0);
+            }
+            15% {
+                clip-path: inset(75% 0 23% 0);
+            }
+            20% {
+                clip-path: inset(46% 0 50% 0);
+            }
+            25% {
+                clip-path: inset(3% 0 46% 0);
+            }
+            30% {
+                clip-path: inset(82% 0 2% 0);
+            }
+            35% {
+                clip-path: inset(88% 0 1% 0);
+            }
+            40% {
+                clip-path: inset(91% 0 8% 0);
+            }
+            45% {
+                clip-path: inset(96% 0 2% 0);
+            }
+            50% {
+                clip-path: inset(59% 0 38% 0);
+            }
+            55% {
+                clip-path: inset(41% 0 53% 0);
+            }
+            60% {
+                clip-path: inset(21% 0 47% 0);
+            }
+            65% {
+                clip-path: inset(89% 0 4% 0);
+            }
+            70% {
+                clip-path: inset(1% 0 95% 0);
+            }
+            75% {
+                clip-path: inset(86% 0 4% 0);
+            }
+            80% {
+                clip-path: inset(95% 0 5% 0);
+            }
+            85% {
+                clip-path: inset(54% 0 36% 0);
+            }
+            90% {
+                clip-path: inset(70% 0 27% 0);
+            }
+            95% {
+                clip-path: inset(6% 0 89% 0);
+            }
+            100% {
+                clip-path: inset(95% 0 5% 0);
+            }
+        }
+
+        .matrix-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.15;
+        }
+
+        .typing-animation::after {
+            content: "|";
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        .project-card {
+            transition: all 0.3s ease;
+            border: 1px solid #333;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 15px var(--neon-green);
+            border-color: var(--neon-green);
+        }
+
+        .skill-bar {
+            height: 8px;
+            background-color: #333;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .skill-progress {
+            height: 100%;
+            background-color: var(--neon-green);
+            animation: progress-animation 1.5s ease-out forwards;
+            transform-origin: left;
+            transform: scaleX(0);
+        }
+
+        @keyframes progress-animation {
+            to { transform: scaleX(1); }
+        }
+
+        .nav-link {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--neon-green);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .binary-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            opacity: 0.05;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #111;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--neon-green);
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <!-- Matrix Background -->
+    <canvas id="matrix" class="matrix-bg"></canvas>
+    
+    <!-- Binary Overlay -->
+    <div class="binary-overlay" id="binaryOverlay"></div>
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-black bg-opacity-80 backdrop-blur-md border-b border-green-500 px-4 py-3">
+        <div class="container mx-auto flex flex-wrap items-center justify-between">
+            <a href="#" class="flex items-center space-x-2">
+                <span class="text-xl font-bold neon-text">&lt;/&gt;</span>
+                <span class="text-xl font-bold glitch" data-text="HACKER_PORTFOLIO">HACKER_PORTFOLIO</span>
+            </a>
+            
+            <button id="mobile-menu-button" class="md:hidden text-gray-300 hover:text-green-500 focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                </svg>
+            </button>
+            
+            <div id="nav-links" class="hidden md:flex w-full md:w-auto md:items-center">
+                <ul class="flex flex-col md:flex-row md:space-x-8 mt-4 md:mt-0">
+                    <li><a href="#home" class="nav-link block py-2 px-3 text-gray-300 hover:text-green-500">&lt;Home/&gt;</a></li>
+                    <li><a href="#about" class="nav-link block py-2 px-3 text-gray-300 hover:text-green-500">&lt;About/&gt;</a></li>
+                    <li><a href="#skills" class="nav-link block py-2 px-3 text-gray-300 hover:text-green-500">&lt;Skills/&gt;</a></li>
+                    <li><a href="#projects" class="nav-link block py-2 px-3 text-gray-300 hover:text-green-500">&lt;Projects/&gt;</a></li>
+                    <li><a href="#contact" class="nav-link block py-2 px-3 text-gray-300 hover:text-green-500">&lt;Contact/&gt;</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative min-h-screen flex items-center justify-center px-4 py-20">
+        <div class="container mx-auto text-center z-10">
+            <div class="terminal max-w-3xl mx-auto p-6 rounded-lg">
+                <div class="flex items-center mb-4">
+                    <div class="w-3 h-3 rounded-full bg-red-500 mr-2"></div>
+                    <div class="w-3 h-3 rounded-full bg-yellow-500 mr-2"></div>
+                    <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                    <div class="ml-4 text-xs text-gray-500">terminal@user:~</div>
+                </div>
+                <div class="typing-container">
+                    <p class="mb-2 text-green-500">$ whoami</p>
+                    <h1 class="text-4xl md:text-6xl font-bold mb-4 glitch" data-text="JOHN DOE">JOHN DOE</h1>
+                    <p class="mb-6 text-green-500">$ cat profession.txt</p>
+                    <div class="typing-animation text-xl md:text-2xl mb-8" id="typing-text">Cybersecurity Specialist | Ethical Hacker | Penetration Tester</div>
+                    <p class="mb-2 text-green-500">$ ./start_conversation</p>
+                    <div class="flex justify-center space-x-4 mt-6">
+                        <a href="#about" class="bg-transparent border border-green-500 text-green-500 hover:bg-green-500 hover:text-black px-6 py-3 rounded-md transition duration-300">View Profile</a>
+                        <a href="#contact" class="bg-green-500 text-black hover:bg-green-600 px-6 py-3 rounded-md transition duration-300">Establish Connection</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <a href="#about" class="text-green-500">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+                </svg>
+            </a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 px-4">
+        <div class="container mx-auto">
+            <h2 class="text-3xl font-bold mb-12 text-center neon-text">&lt; About Me /&gt;</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div class="terminal p-6 rounded-lg">
+                    <div class="flex items-center mb-4">
+                        <div class="w-3 h-3 rounded-full bg-red-500 mr-2"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-500 mr-2"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                        <div class="ml-4 text-xs text-gray-500">about.sh</div>
+                    </div>
+                    <pre class="text-sm md:text-base whitespace-pre-wrap">
+<span class="text-green-500">#!/bin/bash</span>
+
+<span class="text-blue-400">function</span> <span class="text-yellow-400">about_me</span>() {
+    <span class="text-green-500">echo</span> <span class="text-yellow-200">"I am a cybersecurity specialist with over 5 years of experience in penetration testing, vulnerability assessment, and security consulting."</span>
+    
+    <span class="text-green-500">echo</span> <span class="text-yellow-200">"My mission is to help organizations strengthen their security posture by identifying and addressing vulnerabilities before malicious actors can exploit them."</span>
+    
+    <span class="text-green-500">echo</span> <span class="text-yellow-200">"With a background in computer science and specialized training in ethical hacking, I bring a comprehensive approach to cybersecurity challenges."</span>
+}
+
+<span class="text-blue-400">function</span> <span class="text-yellow-400">my_approach</span>() {
+    <span class="text-green-500">echo</span> <span class="text-yellow-200">"I believe in a proactive security mindset."</span>
+    <span class="text-green-500">echo</span> <span class="text-yellow-200">"Security is not just about tools and technology, but also about people and processes."</span>
+    <span class="text-green-500">echo</span> <span class="text-yellow-200">"My approach combines technical expertise with clear communication to deliver actionable security insights."</span>
+}
+
+about_me
+my_approach
+                    </pre>
+                </div>
+                <div>
+                    <div class="mb-8">
+                        <h3 class="text-xl font-bold mb-4 text-green-500">Background</h3>
+                        <p class="mb-4">I specialize in identifying security vulnerabilities and implementing robust defense mechanisms. My expertise spans across network security, web application security, and social engineering prevention.</p>
+                        <p>I hold certifications in CEH (Certified Ethical Hacker), OSCP (Offensive Security Certified Professional), and CompTIA Security+, validating my technical skills and security knowledge.</p>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold mb-4 text-green-500">Philosophy</h3>
+                        <p class="mb-4">I believe that security is a continuous process, not a one-time solution. My work focuses on building security awareness and implementing defense-in-depth strategies.</p>
+                        <p>When I'm not hunting for vulnerabilities, I contribute to open-source security tools and participate in CTF (Capture The Flag) competitions to sharpen my skills.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-20 px-4 bg-black bg-opacity-50">
+        <div class="container mx-auto">
+            <h2 class="text-3xl font-bold mb-12 text-center neon-text">&lt; Technical Arsenal /&gt;</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div class="terminal p-6 rounded-lg">
+                    <div class="flex items-center mb-4">
+                        <div class="w-3 h-3 rounded-full bg-red-500 mr-2"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-500 mr-2"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                        <div class="ml-4 text-xs text-gray-500">skills.py</div>
+                    </div>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="text-green-500">Penetration Testing</span>
+                                <span class="text-green-500">95%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 95%"></div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="text-green-500">Network Security</span>
+                                <span class="text-green-500">90%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="text-green-500">Web Application Security</span>
+                                <span class="text-green-500">85%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 85%"></div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="text-green-500">Malware Analysis</span>
+                                <span class="text-green-500">80%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 80%"></div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="text-green-500">Reverse Engineering</span>
+                                <span class="text-green-500">75%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 75%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="terminal p-4 rounded-lg">
+                            <h3 class="text-lg font-bold mb-3 text-green-500">Tools</h3>
+                            <ul class="space-y-2">
+                                <li class="flex items-center">
+                                    <span class="text-green-500 mr-2">$</span> Metasploit
+                                </li>
+                                <li class="flex items-center">
+                                    <span class="text-green-500 mr-2">$</span> Burp Suite
+                                </li>
+                                <li class="flex items-center">
+                                    <span class="text-green-500 mr-2">$</span> Wireshark
+                                </li>
+                                <li class="flex items-center">
+                                    <span class="text-green-500 mr-2">$</span> Nmap
+                                </li>
+                                <li class="flex items-center">
+                                    <span class="text-green-500 mr-2">$</span> Kali Linux
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="terminal p-4 rounded-lg">
+                            <h3 class="text-lg font-bold mb-3 text-green-500">Languages</h3>
+                            <ul class="space-y-2">
+                                <li class="flex items-center">
+                                    <span class="text-green-500 mr-2">$</span> Python
+                                </li>
+                                <li class="flex items-center">
+                                    <span class="text-green-500 mr-2">$</span> Bash
+                                </li>
+                                <li class="flex items-center">
+                                    <span class="text-green-500 mr-2">$</span> PowerShell
+                                </li>
+                                <li class="flex items-center">
+                                    <span class="text-green-500 mr-2">$</span> SQL
+                                </li>
+                                <li class="flex items-center">
+                                    <span class="text-green-500 mr-2">$</span> JavaScript
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="terminal p-4 rounded-lg">
+                            <h3 class="text-lg font-bold mb-3 text-green-500">Certifications</h3>
+                            <ul class="space-y-2">
+                                <li class="flex items-center">
+                                    <span class="text-green-500 mr-2">$</span> CEH
+                                </li>
+                                <li class="flex items-center">
+                                    <span class="text-green-500 mr-2">$</span> OSCP
+                                </li>
+                                <li class="flex items-center">
+                                    <span class="text-green-500 mr-2">$</span> CompTIA Security+
+                                </li>
+                                <li class="flex items-center">
+                                    <span class="text-green-500 mr-2">$</span> CISSP
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="terminal p-4 rounded-lg">
+                            <h3 class="text-lg font-bold mb-3 text-green-500">Specialties</h3>
+                            <ul class="space-y-2">
+                                <li class="flex items-center">
+                                    <span class="text-green-500 mr-2">$</span> Red Teaming
+                                </li>
+                                <li class="flex items-center">
+                                    <span class="text-green-500 mr-2">$</span> OWASP Top 10
+                                </li>
+                                <li class="flex items-center">
+                                    <span class="text-green-500 mr-2">$</span> Social Engineering
+                                </li>
+                                <li class="flex items-center">
+                                    <span class="text-green-500 mr-2">$</span> IoT Security
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 px-4">
+        <div class="container mx-auto">
+            <h2 class="text-3xl font-bold mb-12 text-center neon-text">&lt; Security Operations /&gt;</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project 1 -->
+                <div class="project-card bg-black bg-opacity-70 rounded-lg overflow-hidden">
+                    <div class="p-1 bg-gradient-to-r from-green-500 to-blue-500"></div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-3 text-green-500">Corporate Network Penetration</h3>
+                        <p class="text-gray-300 mb-4">Conducted a comprehensive penetration test for a financial institution, identifying critical vulnerabilities in their network infrastructure.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-gray-800 text-green-500 text-xs px-2 py-1 rounded">Network Security</span>
+                            <span class="bg-gray-800 text-green-500 text-xs px-2 py-1 rounded">Penetration Testing</span>
+                            <span class="bg-gray-800 text-green-500 text-xs px-2 py-1 rounded">Risk Assessment</span>
+                        </div>
+                        <button class="view-project-btn w-full bg-transparent border border-green-500 text-green-500 hover:bg-green-500 hover:text-black py-2 rounded transition duration-300" data-project="1">View Operation Details</button>
+                    </div>
+                </div>
+                
+                <!-- Project 2 -->
+                <div class="project-card bg-black bg-opacity-70 rounded-lg overflow-hidden">
+                    <div class="p-1 bg-gradient-to-r from-green-500 to-blue-500"></div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-3 text-green-500">Web Application Security Audit</h3>
+                        <p class="text-gray-300 mb-4">Performed a comprehensive security assessment of an e-commerce platform, discovering and helping remediate multiple OWASP Top 10 vulnerabilities.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-gray-800 text-green-500 text-xs px-2 py-1 rounded">Web Security</span>
+                            <span class="bg-gray-800 text-green-500 text-xs px-2 py-1 rounded">OWASP</span>
+                            <span class="bg-gray-800 text-green-500 text-xs px-2 py-1 rounded">API Security</span>
+                        </div>
+                        <button class="view-project-btn w-full bg-transparent border border-green-500 text-green-500 hover:bg-green-500 hover:text-black py-2 rounded transition duration-300" data-project="2">View Operation Details</button>
+                    </div>
+                </div>
+                
+                <!-- Project 3 -->
+                <div class="project-card bg-black bg-opacity-70 rounded-lg overflow-hidden">
+                    <div class="p-1 bg-gradient-to-r from-green-500 to-blue-500"></div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-3 text-green-500">Security Awareness Training</h3>
+                        <p class="text-gray-300 mb-4">Developed and delivered a comprehensive security awareness program for a healthcare organization, reducing successful phishing attempts by 87%.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-gray-800 text-green-500 text-xs px-2 py-1 rounded">Social Engineering</span>
+                            <span class="bg-gray-800 text-green-500 text-xs px-2 py-1 rounded">Training</span>
+                            <span class="bg-gray-800 text-green-500 text-xs px-2 py-1 rounded">Phishing</span>
+                        </div>
+                        <button class="view-project-btn w-full bg-transparent border border-green-500 text-green-500 hover:bg-green-500 hover:text-black py-2 rounded transition duration-300" data-project="3">View Operation Details</button>
+                    </div>
+                </div>
+                
+                <!-- Project 4 -->
+                <div class="project-card bg-black bg-opacity-70 rounded-lg overflow-hidden">
+                    <div class="p-1 bg-gradient-to-r from-green-500 to-blue-500"></div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-3 text-green-500">IoT Device Security Analysis</h3>
+                        <p class="text-gray-300 mb-4">Conducted security analysis of smart home devices, identifying firmware vulnerabilities and insecure communication protocols.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-gray-800 text-green-500 text-xs px-2 py-1 rounded">IoT Security</span>
+                            <span class="bg-gray-800 text-green-500 text-xs px-2 py-1 rounded">Firmware Analysis</span>
+                            <span class="bg-gray-800 text-green-500 text-xs px-2 py-1 rounded">Reverse Engineering</span>
+                        </div>
+                        <button class="view-project-btn w-full bg-transparent border border-green-500 text-green-500 hover:bg-green-500 hover:text-black py-2 rounded transition duration-300" data-project="4">View Operation Details</button>
+                    </div>
+                </div>
+                
+                <!-- Project 5 -->
+                <div class="project-card bg-black bg-opacity-70 rounded-lg overflow-hidden">
+                    <div class="p-1 bg-gradient-to-r from-green-500 to-blue-500"></div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-3 text-green-500">Incident Response Planning</h3>
+                        <p class="text-gray-300 mb-4">Developed a comprehensive incident response plan for a government agency, including playbooks for various security scenarios.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-gray-800 text-green-500 text-xs px-2 py-1 rounded">Incident Response</span>
+                            <span class="bg-gray-800 text-green-500 text-xs px-2 py-1 rounded">Disaster Recovery</span>
+                            <span class="bg-gray-800 text-green-500 text-xs px-2 py-1 rounded">Planning</span>
+                        </div>
+                        <button class="view-project-btn w-full bg-transparent border border-green-500 text-green-500 hover:bg-green-500 hover:text-black py-2 rounded transition duration-300" data-project="5">View Operation Details</button>
+                    </div>
+                </div>
+                
+                <!-- Project 6 -->
+                <div class="project-card bg-black bg-opacity-70 rounded-lg overflow-hidden">
+                    <div class="p-1 bg-gradient-to-r from-green-500 to-blue-500"></div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-3 text-green-500">Custom Security Tool Development</h3>
+                        <p class="text-gray-300 mb-4">Created a suite of custom security tools for automated vulnerability scanning and reporting, improving assessment efficiency by 60%.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-gray-800 text-green-500 text-xs px-2 py-1 rounded">Tool Development</span>
+                            <span class="bg-gray-800 text-green-500 text-xs px-2 py-1 rounded">Python</span>
+                            <span class="bg-gray-800 text-green-500 text-xs px-2 py-1 rounded">Automation</span>
+                        </div>
+                        <button class="view-project-btn w-full bg-transparent border border-green-500 text-green-500 hover:bg-green-500 hover:text-black py-2 rounded transition duration-300" data-project="6">View Operation Details</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Modal -->
+    <div id="projectModal" class="fixed inset-0 z-50 hidden overflow-y-auto">
+        <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
+            <div class="fixed inset-0 transition-opacity" aria-hidden="true">
+                <div class="absolute inset-0 bg-black opacity-75"></div>
+            </div>
+            
+            <div class="inline-block align-bottom bg-gray-900 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                <div class="terminal p-6 rounded-lg">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center">
+                            <div class="w-3 h-3 rounded-full bg-red-500 mr-2"></div>
+                            <div class="w-3 h-3 rounded-full bg-yellow-500 mr-2"></div>
+                            <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                            <div class="ml-4 text-xs text-gray-500">project_details.log</div>
+                        </div>
+                        <button id="closeModal" class="text-gray-400 hover:text-white">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    
+                    <div id="modalContent">
+                        <!-- Content will be dynamically inserted here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 px-4 bg-black bg-opacity-50">
+        <div class="container mx-auto">
+            <h2 class="text-3xl font-bold mb-12 text-center neon-text">&lt; Establish Connection /&gt;</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div class="terminal p-6 rounded-lg">
+                    <div class="flex items-center mb-4">
+                        <div class="w-3 h-3 rounded-full bg-red-500 mr-2"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-500 mr-2"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                        <div class="ml-4 text-xs text-gray-500">contact.sh</div>
+                    </div>
+                    
+                    <form id="contactForm" class="space-y-6">
+                        <div>
+                            <label class="block text-green-500 mb-2" for="name">$ Name:</label>
+                            <input type="text" id="name" class="w-full bg-black border border-green-500 text-white px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-green-500" required>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-green-500 mb-2" for="email">$ Email:</label>
+                            <input type="email" id="email" class="w-full bg-black border border-green-500 text-white px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-green-500" required>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-green-500 mb-2" for="subject">$ Subject:</label>
+                            <input type="text" id="subject" class="w-full bg-black border border-green-500 text-white px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-green-500" required>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-green-500 mb-2" for="message">$ Message:</label>
+                            <textarea id="message" rows="5" class="w-full bg-black border border-green-500 text-white px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-green-500" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="w-full bg-green-500 text-black hover:bg-green-600 py-3 rounded transition duration-300">Send Transmission</button>
+                    </form>
+                </div>
+                
+                <div>
+                    <div class="terminal p-6 rounded-lg mb-8">
+                        <div class="flex items-center mb-4">
+                            <div class="w-3 h-3 rounded-full bg-red-500 mr-2"></div>
+                            <div class="w-3 h-3 rounded-full bg-yellow-500 mr-2"></div>
+                            <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                            <div class="ml-4 text-xs text-gray-500">location.txt</div>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <p class="text-green-500">$ cat contact_info.txt</p>
+                            <div class="space-y-2 ml-4">
+                                <p><span class="text-green-500">Email:</span> contact@hackerportfolio.com</p>
+                                <p><span class="text-green-500">Location:</span> Cyberspace, Digital Realm</p>
+                                <p><span class="text-green-500">PGP Key:</span> 0xAB42DE98F1</p>
+                            </div>
+                            
+                            <p class="text-green-500">$ cat availability.txt</p>
+                            <div class="ml-4">
+                                <p>Available for security consultations, penetration testing, and security training services.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="terminal p-6 rounded-lg">
+                        <div class="flex items-center mb-4">
+                            <div class="w-3 h-3 rounded-full bg-red-500 mr-2"></div>
+                            <div class="w-3 h-3 rounded-full bg-yellow-500 mr-2"></div>
+                            <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                            <div class="ml-4 text-xs text-gray-500">social.txt</div>
+                        </div>
+                        
+                        <p class="text-green-500 mb-4">$ cat social_networks.txt</p>
+                        <div class="grid grid-cols-2 gap-4">
+                            <a href="#" class="flex items-center space-x-2 text-white hover:text-green-500 transition duration-300">
+                                <i class="fab fa-github"></i>
+                                <span>GitHub</span>
+                            </a>
+                            <a href="#" class="flex items-center space-x-2 text-white hover:text-green-500 transition duration-300">
+                                <i class="fab fa-linkedin"></i>
+                                <span>LinkedIn</span>
+                            </a>
+                            <a href="#" class="flex items-center space-x-2 text-white hover:text-green-500 transition duration-300">
+                                <i class="fab fa-twitter"></i>
+                                <span>Twitter</span>
+                            </a>
+                            <a href="#" class="flex items-center space-x-2 text-white hover:text-green-500 transition duration-300">
+                                <i class="fab fa-medium"></i>
+                                <span>Medium</span>
+                            </a>
+                            <a href="#" class="flex items-center space-x-2 text-white hover:text-green-500 transition duration-300">
+                                <i class="fab fa-discord"></i>
+                                <span>Discord</span>
+                            </a>
+                            <a href="#" class="flex items-center space-x-2 text-white hover:text-green-500 transition duration-300">
+                                <i class="fab fa-hackerrank"></i>
+                                <span>HackerRank</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="fixed inset-0 z-50 hidden overflow-y-auto">
+        <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
+            <div class="fixed inset-0 transition-opacity" aria-hidden="true">
+                <div class="absolute inset-0 bg-black opacity-75"></div>
+            </div>
+            
+            <div class="inline-block align-bottom bg-gray-900 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-md sm:w-full">
+                <div class="terminal p-6 rounded-lg">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center">
+                            <div class="w-3 h-3 rounded-full bg-red-500 mr-2"></div>
+                            <div class="w-3 h-3 rounded-full bg-yellow-500 mr-2"></div>
+                            <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                            <div class="ml-4 text-xs text-gray-500">success.log</div>
+                        </div>
+                        <button id="closeSuccessModal" class="text-gray-400 hover:text-white">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    
+                    <div class="text-center">
+                        <div class="text-green-500 text-5xl mb-4">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 text-green-500">Message Transmitted Successfully</h3>
+                        <p class="mb-6 text-gray-300">Your message has been received. I will establish contact shortly.</p>
+                        <div class="typing-animation text-green-500 mb-4">Connection secure... Transmission complete...</div>
+                        <button id="confirmSuccessModal" class="bg-green-500 text-black hover:bg-green-600 px-6 py-2 rounded transition duration-300">Acknowledge</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="py-8 px-4 border-t border-gray-800">
+        <div class="container mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <a href="#" class="flex items-center space-x-2">
+                        <span class="text-xl font-bold neon-text">&lt;/&gt;</span>
+                        <span class="text-xl font-bold">HACKER_PORTFOLIO</span>
+                    </a>
+                </div>
+                
+                <div class="text-center md:text-right">
+                    <p class="text-gray-400">© <span id="currentYear"></span> | Secured with <span class="text-green-500">♥</span> by John Doe</p>
+                    <p class="text-xs text-gray-600 mt-1">v1.0.2 | Last security patch: <span id="lastUpdated"></span></p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" class="fixed bottom-8 right-8 bg-green-500 text-black p-3 rounded-full shadow-lg opacity-0 transition-opacity duration-300 hover:bg-green-600">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+        </svg>
+    </button>
+
+    <script>
+        // Matrix Background Effect
+        const canvas = document.getElementById('matrix');
+        const ctx = canvas.getContext('2d');
+        
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        
+        const characters = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        const fontSize = 14;
+        const columns = canvas.width / fontSize;
+        
+        const drops = [];
+        for (let i = 0; i < columns; i++) {
+            drops[i] = 1;
+        }
+        
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            ctx.fillStyle = '#0f0';
+            ctx.font = `${fontSize}px monospace`;
+            
+            for (let i = 0; i < drops.length; i++) {
+                const text = characters.charAt(Math.floor(Math.random() * characters.length));
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                
+                drops[i]++;
+            }
+        }
+        
+        setInterval(drawMatrix, 50);
+        
+        // Binary Overlay
+        function createBinaryOverlay() {
+            const overlay = document.getElementById('binaryOverlay');
+            let binaryText = '';
+            
+            for (let i = 0; i < 1000; i++) {
+                binaryText += Math.round(Math.random());
+            }
+            
+            overlay.textContent = binaryText;
+        }
+        
+        createBinaryOverlay();
+        setInterval(createBinaryOverlay, 5000);
+        
+        // Typing Animation
+        const typingText = document.getElementById('typing-text');
+        const text = typingText.textContent;
+        typingText.textContent = '';
+        
+        let i = 0;
+        function typeWriter() {
+            if (i < text.length) {
+                typingText.textContent += text.charAt(i);
+                i++;
+                setTimeout(typeWriter, 50);
+            }
+        }
+        
+        setTimeout(typeWriter, 1000);
+        
+        // Mobile Menu Toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const navLinks = document.getElementById('nav-links');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            navLinks.classList.toggle('hidden');
+        });
+        
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+                
+                // Close mobile menu if open
+                if (!navLinks.classList.contains('hidden')) {
+                    navLinks.classList.add('hidden');
+                }
+            });
+        });
+        
+        // Project Modal
+        const projectModal = document.getElementById('projectModal');
+        const modalContent = document.getElementById('modalContent');
+        const closeModal = document.getElementById('closeModal');
+        const viewProjectButtons = document.querySelectorAll('.view-project-btn');
+        
+        const projectDetails = {
+            1: {
+                title: "Corporate Network Penetration",
+                client: "Major Financial Institution",
+                duration: "4 weeks",
+                description: "Conducted a comprehensive penetration test for a financial institution, identifying critical vulnerabilities in their network infrastructure. The assessment included external and internal network testing, wireless security evaluation, and physical security bypass attempts.",
+                findings: [
+                    "Discovered unpatched VPN vulnerability allowing unauthorized access",
+                    "Identified weak password policies across administrative accounts",
+                    "Found misconfigured firewall rules exposing internal services",
+                    "Detected insecure wireless network configuration"
+                ],
+                outcome: "Provided a detailed remediation plan that was implemented by the client, resulting in a 78% reduction in security vulnerabilities. Follow-up testing confirmed the effectiveness of the implemented measures."
+            },
+            2: {
+                title: "Web Application Security Audit",
+                client: "E-commerce Platform",
+                duration: "3 weeks",
+                description: "Performed a comprehensive security assessment of an e-commerce platform, discovering and helping remediate multiple OWASP Top 10 vulnerabilities. The audit included manual testing, automated scanning, and code review.",
+                findings: [
+                    "SQL Injection vulnerability in search functionality",
+                    "Cross-Site Scripting (XSS) in product review system",
+                    "Insecure Direct Object References in order management",
+                    "Broken access control in admin panel"
+                ],
+                outcome: "Worked closely with the development team to implement security fixes, resulting in a PCI-DSS compliant application. Developed secure coding guidelines for the organization."
+            },
+            3: {
+                title: "Security Awareness Training",
+                client: "Healthcare Organization",
+                duration: "6 months",
+                description: "Developed and delivered a comprehensive security awareness program for a healthcare organization, reducing successful phishing attempts by 87%. The program included customized training modules, simulated phishing campaigns, and security awareness materials.",
+                findings: [
+                    "Initial phishing test showed 52% of employees were vulnerable",
+                    "Password practices were not following best practices",
+                    "Staff lacked awareness about social engineering techniques",
+                    "Physical security protocols were often bypassed for convenience"
+                ],
+                outcome: "After six months of training, phishing susceptibility dropped to 6.5%. Implemented a security champion program to sustain awareness. The program became a model for other organizations in the healthcare sector."
+            },
+            4: {
+                title: "IoT Device Security Analysis",
+                client: "Smart Home Device Manufacturer",
+                duration: "5 weeks",
+                description: "Conducted security analysis of smart home devices, identifying firmware vulnerabilities and insecure communication protocols. The assessment included hardware analysis, firmware extraction and analysis, and communication protocol testing.",
+                findings: [
+                    "Unencrypted data transmission between devices and cloud",
+                    "Default credentials hardcoded in firmware",
+                    "Lack of secure boot mechanisms",
+                    "Insufficient protection against physical tampering"
+                ],
+                outcome: "Provided security recommendations that were incorporated into the next generation of devices. Developed a security framework for IoT product development that is now used across all product lines."
+            },
+            5: {
+                title: "Incident Response Planning",
+                client: "Government Agency",
+                duration: "2 months",
+                description: "Developed a comprehensive incident response plan for a government agency, including playbooks for various security scenarios. The project included threat modeling, response procedure development, and tabletop exercises.",
+                findings: [
+                    "Existing response procedures were outdated and incomplete",
+                    "Staff roles and responsibilities were unclear during incidents",
+                    "Communication channels were not defined for crisis situations",
+                    "Recovery procedures lacked testing and validation"
+                ],
+                outcome: "Implemented a structured incident response framework with clear escalation paths and responsibilities. Conducted training sessions and simulated breach exercises to validate the effectiveness of the new procedures."
+            },
+            6: {
+                title: "Custom Security Tool Development",
+                client: "Cybersecurity Consulting Firm",
+                duration: "3 months",
+                description: "Created a suite of custom security tools for automated vulnerability scanning and reporting, improving assessment efficiency by 60%. The toolkit included specialized scanners, data analyzers, and report generators.",
+                findings: [
+                    "Manual processes were time-consuming and error-prone",
+                    "Standard tools missed industry-specific vulnerabilities",
+                    "Reporting was inconsistent across different assessments",
+                    "Data correlation between tools required manual effort"
+                ],
+                outcome: "The custom toolkit reduced assessment time from 2 weeks to 4 days on average. Standardized reporting improved client communication and remediation tracking. The tools have been used in over 50 security assessments to date."
+            }
+        };
+        
+        viewProjectButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const projectId = button.getAttribute('data-project');
+                const project = projectDetails[projectId];
+                
+                let findingsHTML = '';
+                project.findings.forEach(finding => {
+                    findingsHTML += `<li class="flex items-center mb-2"><span class="text-green-500 mr-2">></span> ${finding}</li>`;
+                });
+                
+                modalContent.innerHTML = `
+                    <h3 class="text-2xl font-bold mb-4 text-green-500">${project.title}</h3>
+                    <div class="mb-4">
+                        <p class="text-gray-400 mb-1"><span class="text-green-500">Client:</span> ${project.client}</p>
+                        <p class="text-gray-400"><span class="text-green-500">Duration:</span> ${project.duration}</p>
+                    </div>
+                    <div class="mb-4">
+                        <h4 class="text-lg font-bold mb-2 text-green-500">Mission Brief:</h4>
+                        <p class="text-gray-300">${project.description}</p>
+                    </div>
+                    <div class="mb-4">
+                        <h4 class="text-lg font-bold mb-2 text-green-500">Key Findings:</h4>
+                        <ul class="text-gray-300 ml-2">
+                            ${findingsHTML}
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-bold mb-2 text-green-500">Outcome:</h4>
+                        <p class="text-gray-300">${project.outcome}</p>
+                    </div>
+                `;
+                
+                projectModal.classList.remove('hidden');
+            });
+        });
+        
+        closeModal.addEventListener('click', () => {
+            projectModal.classList.add('hidden');
+        });
+        
+        // Contact Form Submission
+        const contactForm = document.getElementById('contactForm');
+        const successModal = document.getElementById('successModal');
+        const closeSuccessModal = document.getElementById('closeSuccessModal');
+        const confirmSuccessModal = document.getElementById('confirmSuccessModal');
+        
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // In a real application, you would send the form data to a server here
+            
+            // Show success modal
+            successModal.classList.remove('hidden');
+            
+            // Reset form
+            contactForm.reset();
+        });
+        
+        closeSuccessModal.addEventListener('click', () => {
+            successModal.classList.add('hidden');
+        });
+        
+        confirmSuccessModal.addEventListener('click', () => {
+            successModal.classList.add('hidden');
+        });
+        
+        // Back to Top Button
+        const backToTopButton = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.style.opacity = '1';
+            } else {
+                backToTopButton.style.opacity = '0';
+            }
+        });
+        
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Update current year and last updated date
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+        document.getElementById('lastUpdated').textContent = new Date().toLocaleDateString();
+        
+        // Handle window resize for matrix background
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+        
+        // Add scroll reveal effect for sections
+        const sections = document.querySelectorAll('section');
+        
+        const revealSection = (entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('opacity-100');
+                    entry.target.classList.remove('opacity-0', 'translate-y-10');
+                }
+            });
+        };
+        
+        const sectionObserver = new IntersectionObserver(revealSection, {
+            root: null,
+            threshold: 0.15
+        });
+        
+        sections.forEach(section => {
+            section.classList.add('transition', 'duration-1000', 'opacity-0', 'translate-y-10');
+            sectionObserver.observe(section);
+        });
+        
+        // Initialize the first section as visible
+        document.querySelector('section').classList.remove('opacity-0', 'translate-y-10');
+        document.querySelector('section').classList.add('opacity-100');
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'940cf1bbb2654e67',t:'MTc0NzQyMDIwNi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
